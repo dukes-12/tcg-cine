@@ -1,0 +1,175 @@
+/* CinéCarte animation keyframes — ported verbatim from the design handoff
+   (TCG Ciné - Collection Cinéma.dc.html + FilmCard.dc.html). Names kept as-is. */
+
+@keyframes pigHolo {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 300% 50%; }
+}
+@keyframes pigShine {
+  0% { transform: translateX(-130%) rotate(10deg); }
+  45%, 100% { transform: translateX(150%) rotate(10deg); }
+}
+@keyframes pigFloat {
+  0%, 100% { transform: translateY(0); opacity: .2; }
+  50% { transform: translateY(-10px); opacity: .9; }
+}
+/* Voile métallique (Épique+) — un dégradé large qui glisse en
+   background-position, comme un reflet de chrome qui balaie la carte.
+   Voir cardVisual.ts (chromeStyle). */
+@keyframes pigChrome {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+@keyframes pigPop {
+  0% { transform: scale(.86); opacity: 0; }
+  60% { transform: scale(1.03); opacity: 1; }
+  100% { transform: scale(1); opacity: 1; }
+}
+@keyframes pigRise {
+  0% { transform: translateY(16px); opacity: 0; }
+  100% { transform: translateY(0); opacity: 1; }
+}
+@keyframes pigBreathe {
+  0% { transform: translateY(0) rotate(-1.6deg); }
+  50% { transform: translateY(-12px) rotate(1.6deg); }
+  100% { transform: translateY(0) rotate(-1.6deg); }
+}
+@keyframes pigGlow {
+  0%, 100% { opacity: .4; transform: scale(.9); }
+  50% { opacity: .95; transform: scale(1.08); }
+}
+@keyframes pigTear {
+  0% { transform: scale(1) rotate(0); }
+  35% { transform: scale(1.06) rotate(-3deg); }
+  100% { transform: scale(1.5) rotate(6deg); opacity: 0; }
+}
+@keyframes pigBurst {
+  0% { transform: scale(.2); opacity: .9; }
+  100% { transform: scale(2.6); opacity: 0; }
+}
+
+/* ── Tirage rare (Épique / Légendaire / Mythique) ─────────────────
+   Utilisées par src/components/RarePullFx.tsx. La distance et l'angle
+   de chaque éclat arrivent en custom properties, donc un seul jeu de
+   keyframes suffit pour toute la gerbe. */
+@property --pig-reach {
+  syntax: '<length>';
+  inherits: false;
+  initial-value: 0px;
+}
+
+@keyframes pigRareFlash {
+  0% { transform: scale(.35); opacity: 0; }
+  25% { opacity: .95; }
+  100% { transform: scale(1.5); opacity: 0; }
+}
+@keyframes pigRareRing {
+  0% { transform: scale(.3); opacity: 0; }
+  20% { opacity: .85; }
+  100% { transform: scale(1.9); opacity: 0; }
+}
+@keyframes pigRareShard {
+  0% {
+    transform: rotate(var(--pig-angle)) translateY(0) scaleY(.4);
+    opacity: 0;
+  }
+  18% { opacity: 1; }
+  100% {
+    transform: rotate(var(--pig-angle)) translateY(calc(var(--pig-reach) * -1)) scaleY(1);
+    opacity: 0;
+  }
+}
+/* Léger sursaut de la carte elle-même, appliqué par OpenScreen. */
+@keyframes pigRareKick {
+  0% { transform: scale(1); }
+  22% { transform: scale(1.055); }
+  55% { transform: scale(.988); }
+  100% { transform: scale(1); }
+}
+
+/* ── Tirage holo (orthogonal à la rareté — voir HOLO_CHANCE) ──────
+   Utilisées par src/components/HoloPullFx.tsx. Volontairement plus discret
+   que pigRareRing/pigSecretRing (un seul anneau, un seul pulse de halo,
+   pas de gerbe) : cet effet peut se déclencher EN PLUS de celui de la
+   rareté sur une carte qui est à la fois rare et holo, il ne doit pas
+   lui faire concurrence. */
+@keyframes pigHoloHalo {
+  0% { opacity: 0; transform: scale(.85); }
+  35% { opacity: .85; transform: scale(1.05); }
+  100% { opacity: 0; transform: scale(1.15); }
+}
+@keyframes pigHoloRing {
+  0% { transform: scale(.4); opacity: 0; }
+  20% { opacity: .9; }
+  100% { transform: scale(1.7); opacity: 0; }
+}
+
+/* Loterie — la carte tourne sur elle-même pendant le tirage (suspense).
+   Utilisée par src/components/LotteryOverlay.tsx. */
+@keyframes pigSpin {
+  0% { transform: rotateY(0deg); }
+  100% { transform: rotateY(360deg); }
+}
+
+/* Roue de la chance — rotation à plat, contrairement à pigSpin (Y).
+   Utilisée par src/components/WheelOverlay.tsx. */
+@keyframes pigWheelSpin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* ── Carte secrète (rareté 7) ─────────────────────────
+   Utilisées par src/components/SecretCard.tsx et SecretRevealFx.tsx. */
+@keyframes pigSecretRainbow {
+  0% { filter: hue-rotate(0deg); }
+  100% { filter: hue-rotate(360deg); }
+}
+@keyframes pigSecretTwinkle {
+  0%, 100% { opacity: .15; transform: scale(.7); }
+  50% { opacity: 1; transform: scale(1.6); }
+}
+/* Halo géant qui pulse en couleur derrière la carte pendant la révélation —
+   beaucoup plus long que pigGlow (carte normale) pour une mise en scène
+   qui se remarque. */
+@keyframes pigSecretHalo {
+  0%, 100% { opacity: .5; transform: scale(.94); }
+  50% { opacity: 1; transform: scale(1.14); }
+}
+/* Anneaux d'expansion, plus grands et plus lents que pigRareRing. */
+@keyframes pigSecretRing {
+  0% { transform: scale(.25); opacity: 0; }
+  15% { opacity: .9; }
+  100% { transform: scale(3.4); opacity: 0; }
+}
+/* Pluie d'éclats dorés — même principe que pigRareShard (distance portée
+   par --pig-reach) mais une trajectoire nettement plus longue. */
+@keyframes pigSecretShard {
+  0% {
+    transform: rotate(var(--pig-angle)) translateY(0) scale(.3);
+    opacity: 0;
+  }
+  12% { opacity: 1; }
+  100% {
+    transform: rotate(var(--pig-angle)) translateY(calc(var(--pig-reach) * -1)) scale(1);
+    opacity: 0;
+  }
+}
+/* Le libellé "CARTE SECRÈTE" arrive après coup, une fois la gerbe posée. */
+@keyframes pigSecretLabel {
+  0% { transform: translateY(6px) scale(.9); opacity: 0; }
+  100% { transform: translateY(0) scale(1); opacity: 1; }
+}
+
+/* Respect reduced-motion: freeze decorative loops, keep functional transitions.
+   Le sélecteur exclut `html.anim-forced` : quand le joueur choisit
+   « Animations : activées » dans Profil, cette règle ne doit pas gagner —
+   son `!important` est inatteignable depuis le JavaScript.
+   Voir src/lib/useAnimations.ts. */
+@media (prefers-reduced-motion: reduce) {
+  html:not(.anim-forced) *,
+  html:not(.anim-forced) *::before,
+  html:not(.anim-forced) *::after {
+    animation-duration: .001ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}
