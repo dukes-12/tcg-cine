@@ -15,24 +15,7 @@ const TABS = [
 function Badge({ count }: { count: number }) {
   if (count <= 0) return null;
   return (
-    <span
-      style={{
-        position: 'absolute',
-        top: -4,
-        right: -6,
-        minWidth: 13,
-        height: 13,
-        borderRadius: 999,
-        background: 'var(--color-accent)',
-        color: 'var(--color-bg)',
-        fontSize: 8,
-        fontWeight: 700,
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        padding: '0 2px',
-      }}
-    >
+    <span className="tab-badge" aria-label={`${count} notification${count > 1 ? 's' : ''}`}>
       {count > 9 ? '9+' : count}
     </span>
   );
@@ -47,19 +30,14 @@ export default function TabBar() {
   const badges: Partial<Record<string, number>> = { '/profile': mailboxUnread, '/trades': tradesUnread };
 
   return (
-    <nav className="tab-bar">
+    <nav className="tab-bar" aria-label="Navigation principale">
       {TABS.map(({ to, label, Icon }) => (
         <NavLink
           key={to}
           to={to}
-          className="tab-btn"
-          style={({ isActive }) => ({
-            position: 'relative',
-            color: isActive ? 'var(--color-accent)' : 'var(--color-neutral-600)',
-            opacity: isActive ? 1 : 0.8,
-          })}
+          className={({ isActive }) => `tab-btn${isActive ? ' is-active' : ''}`}
         >
-          <span style={{ position: 'relative' }}>
+          <span className="tab-icon">
             <Icon />
             <Badge count={badges[to] ?? 0} />
           </span>
