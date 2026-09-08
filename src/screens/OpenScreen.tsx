@@ -110,41 +110,49 @@ export default function OpenScreen() {
           <PackPicker />
           <QtyPicker />
 
+          {/* Forme "ticket de cinéma" — portée telle quelle du handoff
+              (packVisualStyle/packNotchLeftStyle/packNotchRightStyle/
+              packMainStyle) : deux encoches rondes découpées sur les bords
+              (couleur du fond de la page, pas un cercle plein posé dessus —
+              ça simule un vrai trou de perforation) et un filet pointillé
+              séparant l'icône du sous-titre, comme un vrai talon de ticket. */}
           <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '10px 0', minHeight: 260 }}>
             <div
               className="pressable"
               onClick={tearOrShop}
               style={{
                 position: 'relative',
-                width: 214,
-                height: 286,
-                borderRadius: 34,
+                width: 190,
+                height: 262,
+                borderRadius: 18,
                 background: visual.bg,
                 boxShadow: 'var(--shadow-lg)',
                 cursor: 'pointer',
                 display: 'flex',
                 flexDirection: 'column',
-                alignItems: 'center',
-                justifyContent: 'center',
                 overflow: 'hidden',
                 animation: 'pigBreathe 4.5s ease-in-out infinite',
               }}
             >
+              <div style={{ position: 'absolute', top: 190, left: -8, width: 16, height: 16, borderRadius: '50%', background: 'var(--color-bg)', zIndex: 2 }} />
+              <div style={{ position: 'absolute', top: 190, right: -8, width: 16, height: 16, borderRadius: '50%', background: 'var(--color-bg)', zIndex: 2 }} />
               <div
                 style={{
-                  position: 'absolute',
-                  top: 0,
-                  left: 0,
-                  right: 0,
-                  height: 24,
-                  background: 'repeating-linear-gradient(90deg,rgba(255,255,255,.35) 0 9px,transparent 9px 18px)',
-                  opacity: 0.45,
+                  flex: 1,
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  gap: 10,
+                  borderBottom: '1px dashed rgba(255,255,255,.35)',
                 }}
-              />
-              <ReelEmblem width={98} height={80} holeWidth={15} holeHeight={24} gap={15} bg="rgba(0,0,0,.28)" holeColor="rgba(255,255,255,.85)" boxShadow="inset 0 -7px 14px rgba(0,0,0,.35)" />
-              <div style={{ fontFamily: 'var(--font-heading)', fontSize: 27, color: '#fff', marginTop: 18, textAlign: 'center', lineHeight: 1 }}>CINÉ</div>
-              <div style={{ fontSize: 9, letterSpacing: '.26em', textTransform: 'uppercase', color: 'rgba(255,255,255,.7)', marginTop: 9 }}>{pack.subtitle}</div>
-              <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, height: 46, background: 'linear-gradient(0deg,rgba(0,0,0,.4),transparent)' }} />
+              >
+                <i className="ph ph-ticket" style={{ fontSize: 32, color: 'rgba(255,255,255,.92)' }} />
+                <div style={{ fontFamily: 'var(--font-heading)', fontSize: 22, color: '#fff', textAlign: 'center', lineHeight: 1, fontWeight: 500 }}>CINÉ</div>
+              </div>
+              <div style={{ height: 56, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 9, letterSpacing: '.2em', textTransform: 'uppercase', color: 'rgba(255,255,255,.7)' }}>
+                {pack.subtitle}
+              </div>
             </div>
           </div>
 

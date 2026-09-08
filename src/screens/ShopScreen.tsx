@@ -3,7 +3,6 @@ import DailyBoosterBanner from '../components/DailyBoosterBanner';
 import FreeBoosterBanner from '../components/FreeBoosterBanner';
 import BobinesPill from '../components/BobinesPill';
 import SlotMachineBanner from '../components/SlotMachineBanner';
-import ReelEmblem from '../components/ReelEmblem';
 import WheelBanner from '../components/WheelBanner';
 import { PACKS } from '../data/catalog';
 import { PACK_VISUALS } from '../data/packVisuals';
@@ -66,10 +65,10 @@ export default function ShopScreen() {
             >
               <div
                 style={{
-                  width: 66,
-                  height: 88,
+                  width: 58,
+                  height: 78,
                   flex: 'none',
-                  borderRadius: 20,
+                  borderRadius: 12,
                   background: visual.bg,
                   display: 'flex',
                   alignItems: 'center',
@@ -77,7 +76,7 @@ export default function ShopScreen() {
                   boxShadow: 'var(--shadow-sm)',
                 }}
               >
-                <ReelEmblem width={34} height={27} holeWidth={5} holeHeight={9} gap={5} />
+                <i className="ph ph-film-strip" style={{ fontSize: 24, color: '#fff' }} />
               </div>
               <div style={{ flex: 1, minWidth: 0 }}>
                 <div style={{ fontFamily: 'var(--font-heading)', fontSize: 18, lineHeight: 1.1 }}>{pk.name}</div>

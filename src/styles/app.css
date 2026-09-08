@@ -110,7 +110,10 @@ body {
   position: absolute;
   inset: 0;
   z-index: 80;
-  background: rgba(32, 30, 29, .6);
+  /* Fond quasi opaque — un fond translucide laissait l'écran du dessous
+     transparaître et rendait le texte illisible par-dessus (déjà sombre
+     sur déjà sombre, Nocturne n'a pas la marge d'un thème clair pour ça). */
+  background: rgba(13, 14, 22, .97);
   backdrop-filter: blur(7px);
   display: flex;
   flex-direction: column;

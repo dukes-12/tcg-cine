@@ -57,7 +57,7 @@ export default function WheelOverlay() {
           />
           <div style={{ animation: holoAnim ? 'pigWheelSpin .9s linear infinite' : 'none' }}>{wheelFace}</div>
         </div>
-        <div style={{ marginTop: 22, fontFamily: 'var(--font-heading)', fontSize: 15, color: 'var(--color-bg)' }}>Ça tourne…</div>
+        <div style={{ marginTop: 22, fontFamily: 'var(--font-heading)', fontSize: 15, color: 'var(--color-text)' }}>Ça tourne…</div>
       </div>
     );
   }
@@ -99,8 +99,8 @@ export default function WheelOverlay() {
         )}
       </div>
 
-      <div style={{ marginTop: 22, textAlign: 'center', color: 'var(--color-bg)', position: 'relative', zIndex: 2, maxWidth: 280 }}>
-        <h2 style={{ fontSize: 23, margin: 0, color: 'var(--color-bg)', textWrap: 'balance' as const }}>
+      <div style={{ marginTop: 22, textAlign: 'center', color: 'var(--color-text)', position: 'relative', zIndex: 2, maxWidth: 280 }}>
+        <h2 style={{ fontSize: 23, margin: 0, color: 'var(--color-text)', textWrap: 'balance' as const }}>
           {wheelWon ? 'Gagné !' : 'Pas cette fois.'}
         </h2>
         <div style={{ fontSize: 12.5, opacity: 0.75, marginTop: 8, textWrap: 'pretty' as const }}>

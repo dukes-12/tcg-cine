@@ -44,6 +44,11 @@ export default function CardDetailOverlay() {
   const parts: string[] = [];
   if (count > 0) parts.push(`${count} classique${count > 1 ? 's' : ''}`);
   if (holoCount > 0) parts.push(`${holoCount} holo`);
+  // Le nom/type/synopsis d'un film pas encore tiré restent visibles — on
+  // ne masque plus en "???" que la carte secrète, seul cas où la surprise
+  // totale est le but. Sinon impossible de décider "veut voir"/"pas
+  // intéressé" sur un film qu'on n'a jamais pioché : ce serait noter à
+  // l'aveugle, exactement l'inverse de ce que ce statut sert à faire.
   const meta = isSecret
     ? count > 0
       ? '1 sur 1 — pièce unique, ne se recycle pas'
@@ -51,6 +56,7 @@ export default function CardDetailOverlay() {
     : revealed
       ? `${card.type} · ${parts.join(' · ')} · ${rarity.recycleValue} bobines`
       : `${card.type} · pas encore trouvée`;
+  const displayName = isSecret && !revealed ? '???' : card.name;
 
   return (
     <div className="overlay">
@@ -70,12 +76,12 @@ export default function CardDetailOverlay() {
           <FilmCard card={card} big ownedCount={count + holoCount} isHolo={holoCount > 0} />
         </TiltCard>
       </div>
-      <div style={{ marginTop: 22, textAlign: 'center', color: 'var(--color-bg)', position: 'relative', zIndex: 2, maxWidth: 300 }}>
+      <div style={{ marginTop: 22, textAlign: 'center', color: 'var(--color-text)', position: 'relative', zIndex: 2, maxWidth: 300 }}>
         <div style={{ fontSize: 9, letterSpacing: '.2em', textTransform: 'uppercase', opacity: 0.7 }}>{rarity.name}</div>
-        <h2 style={{ fontSize: 25, margin: '7px 0 0', color: 'var(--color-bg)', textWrap: 'balance' as const }}>{revealed ? card.name : '???'}</h2>
+        <h2 style={{ fontSize: 25, margin: '7px 0 0', color: 'var(--color-text)', textWrap: 'balance' as const }}>{displayName}</h2>
         <div style={{ fontSize: 12, opacity: 0.7, marginTop: 7 }}>{meta}</div>
-        {revealed && card.synopsis && (
-          <p style={{ fontSize: 12.5, opacity: 0.85, marginTop: 14, lineHeight: 1.5, textAlign: 'left' }}>{card.synopsis}</p>
+        {!(isSecret && !revealed) && card.synopsis && (
+          <p style={{ fontSize: 12.5, opacity: 0.9, marginTop: 14, lineHeight: 1.5, textAlign: 'left' }}>{card.synopsis}</p>
         )}
       </div>
 
@@ -96,8 +102,8 @@ export default function CardDetailOverlay() {
                   fontSize: 11,
                   padding: '7px 12px',
                   borderRadius: 999,
-                  background: active ? 'var(--color-bg)' : 'rgba(255,255,255,.14)',
-                  color: active ? 'var(--color-text)' : 'var(--color-bg)',
+                  background: active ? 'var(--color-accent)' : 'var(--color-neutral-800)',
+                  color: active ? 'var(--color-bg)' : 'var(--color-text)',
                 }}
               >
                 {opt.label}
@@ -118,7 +124,7 @@ export default function CardDetailOverlay() {
           cursor: 'pointer',
           fontFamily: 'var(--font-heading)',
           fontSize: 14,
-          background: 'var(--color-bg)',
+          background: 'var(--color-neutral-800)',
           color: 'var(--color-text)',
           padding: '12px 28px',
           borderRadius: 999,
