@@ -3,12 +3,12 @@ html, body, #root {
 }
 
 html {
-  background: #e3d6c0;
+  background: var(--color-bg);
 }
 
 body {
   margin: 0;
-  background: #e3d6c0;
+  background: var(--color-bg);
   -webkit-tap-highlight-color: transparent;
   overscroll-behavior: none;
 }
@@ -118,8 +118,16 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  padding: 30px 24px;
+  /* Pas de scroll ici avant : un synopsis long + les 3 boutons de statut +
+     Fermer dépassaient la hauteur d'écran sans aucun moyen d'atteindre le
+     bas — page bloquée. `safe center` : centré quand le contenu tient,
+     aligné en haut + défilable dès qu'il dépasse (au lieu d'un `center`
+     classique qui aurait juste rendu le début inaccessible en scrollant). */
+  justify-content: safe center;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  padding: 30px 24px calc(env(safe-area-inset-bottom, 0px) + 30px);
+  box-sizing: border-box;
 }
 
 .toast-layer {
