@@ -48,6 +48,7 @@ export default function ShopScreen() {
               }}
             >
               <div
+                className="booster-art"
                 style={{
                   width: 58,
                   height: 78,
@@ -63,8 +64,8 @@ export default function ShopScreen() {
                 <i className="ph ph-film-strip" style={{ fontSize: 24, color: '#fff' }} />
               </div>
               <div style={{ flex: 1, minWidth: 0 }}>
-                <div style={{ fontFamily: 'var(--font-heading)', fontSize: 18, lineHeight: 1.1 }}>{pk.name}</div>
-                <div style={{ fontSize: 11.5, opacity: 0.65, marginTop: 4, textWrap: 'pretty' as const }}>{visual.desc}</div>
+                <div className="booster-title">{pk.name}</div>
+                <div className="booster-description">{visual.desc}</div>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginTop: 10 }}>
                   <span
                     style={{

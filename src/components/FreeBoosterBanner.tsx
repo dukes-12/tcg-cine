@@ -30,6 +30,7 @@ export default function FreeBoosterBanner() {
   return (
     <div className="booster-panel booster-panel--reward">
       <div
+        className="booster-art booster-art--gift"
         style={{
           position: 'relative',
           width: 66,
@@ -64,8 +65,8 @@ export default function FreeBoosterBanner() {
         )}
       </div>
       <div style={{ flex: 1, minWidth: 0 }}>
-        <div style={{ fontFamily: 'var(--font-heading)', fontSize: 18, lineHeight: 1.1 }}>Sac gratuit</div>
-        <div style={{ fontSize: 11.5, opacity: 0.65, marginTop: 4, textWrap: 'pretty' as const }}>{subtitle}</div>
+        <div className="booster-title">Sac gratuit</div>
+        <div className="booster-description">{subtitle}</div>
       </div>
       <button
         className="btn btn-primary booster-action"

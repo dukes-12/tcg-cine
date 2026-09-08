@@ -1,4 +1,4 @@
-import type { CSSProperties } from 'react';
+import { useState, type CSSProperties } from 'react';
 import { avatarByKey } from '../data/avatars';
 import type { AvatarKey } from '../types';
 import ReelEmblem from './ReelEmblem';
@@ -22,7 +22,9 @@ export default function Avatar({
   boxShadow?: string;
   style?: CSSProperties;
 }) {
-  if (photo) {
+  const [photoFailed, setPhotoFailed] = useState(false);
+
+  if (photo && !photoFailed) {
     return (
       <img
         className="account-avatar"
@@ -30,6 +32,7 @@ export default function Avatar({
         alt=""
         width={size}
         height={size}
+        onError={() => setPhotoFailed(true)}
         style={{ width: size, height: size, boxShadow, ...style }}
       />
     );

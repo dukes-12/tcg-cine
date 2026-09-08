@@ -29,6 +29,7 @@ export default function DailyBoosterBanner() {
   return (
     <div className="booster-panel booster-panel--reward">
       <div
+        className="booster-art booster-art--gift"
         style={{
           position: 'relative',
           width: 66,
@@ -63,8 +64,8 @@ export default function DailyBoosterBanner() {
         )}
       </div>
       <div style={{ flex: 1, minWidth: 0 }}>
-        <div style={{ fontFamily: 'var(--font-heading)', fontSize: 18, lineHeight: 1.1 }}>Sachets du jour</div>
-        <div style={{ fontSize: 11.5, opacity: 0.65, marginTop: 4, textWrap: 'pretty' as const }}>{subtitle}</div>
+        <div className="booster-title">Sachets du jour</div>
+        <div className="booster-description">{subtitle}</div>
       </div>
       <button
         className="btn btn-primary booster-action"
