@@ -69,11 +69,11 @@ export function buildCardVisual(card: Card, opts: BuildCardOptions = {}): CardVi
     width: '100%',
     height: '100%',
     borderRadius: big ? 18 : 12,
-    // Cartes pas encore possédées : cadre nettement plus épais que celui
-    // d'une carte possédée — c'est la seule information disponible avant de
-    // l'avoir tirée, il doit se voir tout de suite dans la grille, pas se
-    // deviner en plissant les yeux.
-    padding: !owned ? (big ? 4 : 3) : big ? 2.5 : 1.5,
+    // Cadre épais des deux côtés — la version "possédée" (dégradé métallique
+    // biseauté) était de loin la plus discrète des deux avant ce passage :
+    // 1.5-2.5px, un simple liseré qui ne se lisait pas comme un cadre de
+    // carte. Les deux tournent maintenant sur la même épaisseur.
+    padding: big ? 8 : 4.5,
     // Teinté par l'encre de la rareté à pleine saturation (pas un mélange
     // discret) — une Épique+ doit sauter aux yeux dans la grille Collection
     // avant même d'être tirée, exactement comme demandé.
@@ -93,7 +93,12 @@ export function buildCardVisual(card: Card, opts: BuildCardOptions = {}): CardVi
     borderRadius: big ? 16 : 10.5,
     overflow: 'hidden',
     background: holo && owned ? 'linear-gradient(160deg, #1c1d2c, #12131d 60%)' : 'var(--color-surface)',
-    boxShadow: 'inset 0 1px 0 rgba(255,255,255,.12), inset 0 -1px 2px rgba(0,0,0,.5)',
+    // Liseré de séparation cadre/illustration, teinté par l'encre de la
+    // rareté — le détail qui fait qu'un cadre épais lit comme un vrai
+    // biseau de carte plutôt qu'une bordure plate posée dessus.
+    boxShadow: owned
+      ? `inset 0 0 0 1px color-mix(in srgb, ${ink} 70%, transparent), inset 0 1px 0 rgba(255,255,255,.12), inset 0 -1px 2px rgba(0,0,0,.5)`
+      : 'inset 0 1px 0 rgba(255,255,255,.12), inset 0 -1px 2px rgba(0,0,0,.5)',
   };
 
   const artWrap: CSSProperties = { position: 'absolute', inset: 0 };
