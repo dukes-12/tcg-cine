@@ -177,6 +177,71 @@ body {
   .tab-icon svg { width: 18px; height: 18px; }
 }
 
+/* Sur iOS, un document totalement verrouillé empêche Safari de rétracter sa
+   barre d'outils. Le document porte donc le scroll sur mobile ; le cadre
+   desktop conserve son panneau interne. */
+@media (max-width: 559px) {
+  html, body, #root { height: auto; min-height: 100%; }
+  body { overflow-x: hidden; overflow-y: auto; }
+  .app-shell { height: auto; min-height: 100vh; overflow: visible; }
+  @supports (min-height: 100dvh) { .app-shell { min-height: 100dvh; } }
+  .screen { overflow: visible; min-height: 100vh; }
+  .tab-bar {
+    position: fixed;
+    width: min(436px, calc(100% - 24px));
+    left: 50%; right: auto;
+    transform: translateX(-50%);
+  }
+}
+
+/* Booster cards */
+.booster-panel {
+  display: flex;
+  gap: 13px;
+  align-items: center;
+  padding: 14px;
+  border-radius: 24px;
+  border: 1px solid color-mix(in srgb, var(--color-text) 9%, transparent);
+  background: linear-gradient(135deg, color-mix(in srgb, var(--color-surface) 94%, white), var(--color-surface));
+  box-shadow: 0 10px 25px rgba(0,0,0,.2);
+  transition: border-color .2s ease, transform .2s ease, box-shadow .2s ease;
+}
+.booster-panel.is-selected,
+.booster-panel--reward { border-color: color-mix(in srgb, var(--color-accent) 65%, transparent); box-shadow: 0 12px 30px rgba(0,0,0,.28), inset 0 0 0 1px color-mix(in srgb, var(--color-accent) 25%, transparent); }
+.booster-actions { display: flex; flex-direction: column; gap: 7px; }
+.booster-actions .btn, .booster-action { min-height: 40px; font-size: 12px; padding: 8px 14px; }
+.open-action { min-height: 50px; margin-top: 16px; font-size: 16px; box-shadow: 0 9px 22px color-mix(in srgb, var(--color-accent) 25%, transparent); }
+
+/* Account pictures and preset avatars */
+.account-avatar {
+  display: inline-grid;
+  place-items: center;
+  flex: none;
+  overflow: hidden;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: center;
+  background: var(--color-neutral-800);
+  border: 2px solid color-mix(in srgb, var(--color-text) 16%, transparent);
+}
+.account-avatar--preset { padding: 2px; }
+.avatar-choice { min-width: 60px; min-height: 60px; border-radius: 50%; transition: transform .12s ease, box-shadow .18s ease; }
+.avatar-choice:hover { transform: translateY(-2px); }
+.avatar-choice.is-selected { box-shadow: 0 0 0 3px var(--color-bg), 0 0 0 5px var(--color-accent) !important; }
+.avatar-choice--upload { display: grid; place-items: center; }
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+
+@media (max-width: 390px) {
+  .booster-panel { flex-wrap: wrap; }
+  .booster-panel > div:nth-child(2) { flex: 1; }
+  .booster-actions { width: 100%; flex-direction: row; }
+  .booster-actions .btn { flex: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .btn, .booster-panel, .avatar-choice { transition: none; }
+}
+
 /* Detail / summary overlay */
 .overlay {
   position: absolute;

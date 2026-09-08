@@ -57,11 +57,12 @@ export default function AvatarPicker() {
 
         {avatarPhoto ? (
           <div style={{ position: 'relative' }}>
-            <button className="pressable" onClick={() => fileRef.current?.click()} title="Changer la photo" style={tileStyle(true)}>
+            <button type="button" className="avatar-choice is-selected" onClick={() => fileRef.current?.click()} title="Changer la photo" style={tileStyle(true)}>
               <Avatar avatar={avatar} photo={avatarPhoto} size={52} boxShadow="none" />
             </button>
             <button
               className="pressable"
+              type="button"
               onClick={() => setAvatarPhoto(null)}
               title="Retirer la photo"
               aria-label="Retirer la photo"
@@ -88,7 +89,8 @@ export default function AvatarPicker() {
           </div>
         ) : (
           <button
-            className="pressable"
+            className="avatar-choice avatar-choice--upload"
+            type="button"
             onClick={() => fileRef.current?.click()}
             disabled={busy}
             title="Choisir une photo"
@@ -108,14 +110,15 @@ export default function AvatarPicker() {
               opacity: busy ? 0.5 : 1,
             }}
           >
-            {busy ? '…' : '+'}
+            {busy ? '…' : <><span aria-hidden="true">＋</span><span className="sr-only">Ajouter une photo</span></>}
           </button>
         )}
 
         {AVATARS.map((a) => (
           <button
             key={a.key}
-            className="pressable"
+            className={`avatar-choice${!avatarPhoto && avatar === a.key ? ' is-selected' : ''}`}
+            type="button"
             onClick={() => pickPreset(a.key)}
             title={a.name}
             style={tileStyle(!avatarPhoto && avatar === a.key)}

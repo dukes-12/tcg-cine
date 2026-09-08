@@ -25,18 +25,20 @@ export default function Avatar({
   if (photo) {
     return (
       <img
+        className="account-avatar"
         src={photo}
         alt=""
         width={size}
         height={size}
-        style={{ width: size, height: size, borderRadius: '50%', objectFit: 'cover', flex: 'none', boxShadow, ...style }}
+        style={{ width: size, height: size, boxShadow, ...style }}
       />
     );
   }
 
   const a = avatarByKey(avatar);
   return (
-    <ReelEmblem
+    <span className="account-avatar account-avatar--preset" style={{ width: size, height: size, boxShadow, ...style }}>
+      <ReelEmblem
       width={size}
       height={size}
       holeWidth={Math.round(size * 0.16)}
@@ -44,8 +46,8 @@ export default function Avatar({
       gap={Math.round(size * 0.15)}
       bg={a.bg}
       holeColor={a.holeColor}
-      boxShadow={boxShadow}
-      style={style}
-    />
+        boxShadow="none"
+      />
+    </span>
   );
 }
