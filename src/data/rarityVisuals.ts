@@ -3,10 +3,11 @@ import type { RarityId } from '../types';
 /** Presentation-only rarity metadata that isn't part of the data model
  *  (ink color for dots/bars, halo glow color, short label for tight UI).
  *
- *  Palette validée : Rare = bleu, Épique = violet, Mythique = noir + or +
- *  violet (halo or). Les mêmes valeurs vivent dans `src/data/rarities.ts`
- *  (`ink` / `glow`) et dans `src/lib/cardVisual.ts` (`SKIN`) — garder les
- *  trois en phase. */
+ *  Palette Nocturne (redesign pass) : une seule teinte accent (violet),
+ *  la rareté monte en s'éclaircissant sur la rampe accent — du neutre
+ *  (Commune) au blanc-violet quasi lumineux (Secrète). Portée depuis le
+ *  handoff `TCG Ciné.dc.html` (`RARITIES`). Les mêmes valeurs doivent
+ *  rester en phase avec `src/lib/cardVisual.ts`. */
 export interface RarityVisual {
   short: string;
   ink: string;
@@ -14,11 +15,11 @@ export interface RarityVisual {
 }
 
 export const RARITY_VISUALS: Record<RarityId, RarityVisual> = {
-  1: { short: 'Com.', ink: 'var(--color-neutral-700)', glow: 'rgba(161,151,134,.55)' },
-  2: { short: 'Peu c.', ink: 'var(--color-accent-2-700)', glow: 'rgba(143,160,115,.6)' },
-  3: { short: 'Rare', ink: '#2f5c9e', glow: 'rgba(91,143,214,.75)' },
-  4: { short: 'Épique', ink: '#6c3fa0', glow: 'rgba(122,73,180,.85)' },
-  5: { short: 'Légend.', ink: '#8c6318', glow: 'rgba(255,215,130,1)' },
-  6: { short: 'Myth.', ink: '#43206d', glow: 'rgba(255,217,138,1)' },
-  7: { short: 'Secr.', ink: '#c94fb0', glow: 'rgba(255,138,217,.85)' },
+  1: { short: 'Com.', ink: 'var(--color-neutral-500)', glow: 'rgba(147,151,171,.35)' },
+  2: { short: 'Peu c.', ink: 'var(--color-neutral-300)', glow: 'rgba(207,211,229,.4)' },
+  3: { short: 'Rare', ink: 'var(--color-accent-600)', glow: 'rgba(121,108,191,.55)' },
+  4: { short: 'Épique', ink: 'var(--color-accent-500)', glow: 'rgba(150,138,224,.65)' },
+  5: { short: 'Légend.', ink: 'var(--color-accent-400)', glow: 'rgba(181,171,252,.8)' },
+  6: { short: 'Myth.', ink: 'var(--color-accent-300)', glow: 'rgba(210,206,253,.95)' },
+  7: { short: 'Secr.', ink: 'var(--color-accent-100)', glow: 'rgba(245,244,255,1)' },
 };

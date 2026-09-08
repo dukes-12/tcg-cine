@@ -4,7 +4,6 @@ import Avatar from '../components/Avatar';
 import FilmCard from '../components/FilmCard';
 import { SECRET_CARD, cardById } from '../data/catalog';
 import { apiFetchFriends, apiFetchProfile, apiFetchTrades, apiProposeTrade, apiRespondTrade, type Trade } from '../lib/api';
-import { useAnimations } from '../lib/useAnimations';
 import { useStore } from '../state/store';
 import type { AvatarKey } from '../types';
 
@@ -37,7 +36,6 @@ export default function TradesScreen() {
   const owned = useStore((s) => s.owned);
   const say = useStore((s) => s.say);
   const setTradesUnread = useStore((s) => s.setTradesUnread);
-  const holoAnim = useAnimations();
   const navigate = useNavigate();
 
   const [friends, setFriends] = useState<Friend[]>([]);
@@ -190,7 +188,7 @@ export default function TradesScreen() {
             counts={owned}
             selected={offer}
             onToggle={(id) => toggle(offer, setOffer, id)}
-            holoAnim={holoAnim}
+           
             empty="Aucun doublon à proposer."
           />
           <CardPicker
@@ -199,7 +197,7 @@ export default function TradesScreen() {
             counts={theirOwned ?? {}}
             selected={request}
             onToggle={(id) => toggle(request, setRequest, id)}
-            holoAnim={holoAnim}
+           
             loading={theirOwned == null}
             empty={`${targetFriend?.username ?? target} n'a aucun doublon pour l'instant.`}
             alreadyOwned={owned}
@@ -231,7 +229,7 @@ export default function TradesScreen() {
           <div className="section-label" style={{ marginBottom: 8 }}>En attente</div>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
             {pending.map((t) => (
-              <TradeRow key={t.id} trade={t} friends={friends} onRespond={respond} onOpen={navigate} holoAnim={holoAnim} />
+              <TradeRow key={t.id} trade={t} friends={friends} onRespond={respond} onOpen={navigate} />
             ))}
           </div>
         </div>
@@ -242,7 +240,7 @@ export default function TradesScreen() {
           <div className="section-label" style={{ marginBottom: 8 }}>Historique</div>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
             {resolved.slice(0, 12).map((t) => (
-              <TradeRow key={t.id} trade={t} friends={friends} onRespond={respond} onOpen={navigate} holoAnim={holoAnim} />
+              <TradeRow key={t.id} trade={t} friends={friends} onRespond={respond} onOpen={navigate} />
             ))}
           </div>
         </div>
@@ -268,7 +266,6 @@ function CardPicker({
   counts,
   selected,
   onToggle,
-  holoAnim,
   loading,
   empty,
   alreadyOwned,
@@ -278,7 +275,6 @@ function CardPicker({
   counts: Record<string, number>;
   selected: Record<string, number>;
   onToggle: (id: number) => void;
-  holoAnim: boolean;
   loading?: boolean;
   empty: string;
   alreadyOwned?: Record<string, number>;
@@ -305,7 +301,7 @@ function CardPicker({
                 onClick={() => onToggle(id)}
                 style={{ position: 'relative', aspectRatio: '0.72', cursor: 'pointer', minWidth: 0, borderRadius: 15, boxShadow: active ? '0 0 0 3px var(--color-accent)' : 'none' }}
               >
-                <FilmCard card={card} holoAnim={holoAnim} ownedCount={1} />
+                <FilmCard card={card} ownedCount={1} />
                 <span
                   style={{
                     position: 'absolute',
@@ -372,7 +368,7 @@ function CardPicker({
   );
 }
 
-function CardStrip({ ids, holoAnim }: { ids: number[]; holoAnim: boolean }) {
+function CardStrip({ ids }: { ids: number[] }) {
   if (ids.length === 0) return <span style={{ fontSize: 11.5, opacity: 0.4 }}>—</span>;
   return (
     <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
@@ -381,7 +377,7 @@ function CardStrip({ ids, holoAnim }: { ids: number[]; holoAnim: boolean }) {
         if (!card) return null;
         return (
           <div key={id} style={{ width: 34, aspectRatio: '0.72', flex: 'none' }} title={card.name}>
-            <FilmCard card={card} holoAnim={holoAnim} ownedCount={1} />
+            <FilmCard card={card} ownedCount={1} />
           </div>
         );
       })}
@@ -394,13 +390,11 @@ function TradeRow({
   friends,
   onRespond,
   onOpen,
-  holoAnim,
 }: {
   trade: Trade;
   friends: Friend[];
   onRespond: (id: number, action: 'accept' | 'decline' | 'cancel') => void;
   onOpen: (path: string) => void;
-  holoAnim: boolean;
 }) {
   const other = trade.direction === 'outgoing' ? trade.toUsername : trade.fromUsername;
   const mine = trade.direction === 'outgoing' ? trade.offer : trade.request;
@@ -436,11 +430,11 @@ function TradeRow({
       <div style={{ display: 'flex', flexDirection: 'column', gap: 8, marginTop: 10 }}>
         <div>
           <div style={{ fontSize: 10, fontWeight: 700, letterSpacing: '.04em', textTransform: 'uppercase', opacity: 0.45, marginBottom: 5 }}>Tu donnes</div>
-          <CardStrip ids={Object.keys(mine).map(Number)} holoAnim={holoAnim} />
+          <CardStrip ids={Object.keys(mine).map(Number)} />
         </div>
         <div>
           <div style={{ fontSize: 10, fontWeight: 700, letterSpacing: '.04em', textTransform: 'uppercase', opacity: 0.45, marginBottom: 5 }}>Tu reçois</div>
-          <CardStrip ids={Object.keys(theirs).map(Number)} holoAnim={holoAnim} />
+          <CardStrip ids={Object.keys(theirs).map(Number)} />
         </div>
       </div>
       {trade.status === 'pending' && (

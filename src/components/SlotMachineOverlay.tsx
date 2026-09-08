@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import { cardById } from '../data/catalog';
 import { RARITY_VISUALS } from '../data/rarityVisuals';
-import { useAnimations } from '../lib/useAnimations';
 import { SLOT_BETS, SLOT_SYMBOLS, type SlotSymbol } from '../lib/slot';
 import { useStore } from '../state/store';
 import FilmCard from './FilmCard';
@@ -26,7 +25,6 @@ export default function SlotMachineOverlay() {
   const setSlotBet = useStore((s) => s.setSlotBet);
   const spinSlot = useStore((s) => s.spinSlot);
   const closeSlot = useStore((s) => s.closeSlot);
-  const holoAnim = useAnimations();
 
   if (slotState === 'closed') return null;
 
@@ -66,7 +64,7 @@ export default function SlotMachineOverlay() {
           }}
         >
           {[0, 1, 2].map((i) => (
-            <Reel key={i} spinning={spinning} finalSymbol={slotResult?.reels[i] ?? null} stopDelayMs={STOP_DELAYS[i]} holoAnim={holoAnim} />
+            <Reel key={i} spinning={spinning} finalSymbol={slotResult?.reels[i] ?? null} stopDelayMs={STOP_DELAYS[i]} />
           ))}
         </div>
 
@@ -159,12 +157,10 @@ function Reel({
   spinning,
   finalSymbol,
   stopDelayMs,
-  holoAnim,
 }: {
   spinning: boolean;
   finalSymbol: SlotSymbol | null;
   stopDelayMs: number;
-  holoAnim: boolean;
 }) {
   const [display, setDisplay] = useState<SlotSymbol>(finalSymbol ?? SLOT_SYMBOLS[0]);
   const [locked, setLocked] = useState(!spinning);
@@ -206,7 +202,7 @@ function Reel({
       }}
     >
       <div key={locked ? `${display.cardId}-locked` : undefined} style={{ width: '100%', height: '100%', animation: locked ? 'pigPop .3s ease both' : 'none' }}>
-        <FilmCard card={card} holoAnim={holoAnim} ownedCount={1} isHolo={false} />
+        <FilmCard card={card} ownedCount={1} isHolo={false} />
       </div>
     </div>
   );

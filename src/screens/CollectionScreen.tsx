@@ -4,7 +4,6 @@ import Chip from '../components/Chip';
 import FilmCard from '../components/FilmCard';
 import { CARDS, RARITIES, SECRET_CARD, SECRET_RARITY_ID, TOTAL_CARDS, TYPES } from '../data/catalog';
 import { RARITY_VISUALS } from '../data/rarityVisuals';
-import { useAnimations } from '../lib/useAnimations';
 import { useStore } from '../state/store';
 import type { Card, GridCols, RarityId } from '../types';
 
@@ -30,7 +29,6 @@ export default function CollectionScreen() {
   const setGridCols = useStore((s) => s.setGridCols);
   const toggleOwnedOnly = useStore((s) => s.toggleOwnedOnly);
   const openDetail = useStore((s) => s.openDetail);
-  const holoAnim = useAnimations();
   const navigate = useNavigate();
 
   // La carte secrète ne compte pas dans "cartes uniques" — comme
@@ -230,7 +228,7 @@ export default function CollectionScreen() {
               onClick={() => openDetail(card.id)}
               style={{ position: 'relative', aspectRatio: '0.72', cursor: 'pointer', minWidth: 0 }}
             >
-              <FilmCard card={card} holoAnim={holoAnim} ownedCount={count} />
+              <FilmCard card={card} ownedCount={count} />
               {count > 1 && (
                 <span
                   style={{

@@ -368,9 +368,7 @@ export default function OpenScreen() {
                     overflow: 'hidden',
                   }}
                 >
-                  {/* holoAnim conditionné à `revealed` : face cachée, le foil
-                      et le reflet ne tournent pas — rien à laisser filtrer. */}
-                  <FilmCard card={card} big forceOwned holoAnim={holoAnim && revealed} isHolo={isHolo} />
+                  <FilmCard card={card} big forceOwned isHolo={isHolo} />
                 </div>
               </div>
             </div>
@@ -460,7 +458,7 @@ export default function OpenScreen() {
                     onClick={() => openDetail(card.id)}
                     style={{ position: 'relative', aspectRatio: '0.72', cursor: 'pointer', minWidth: 0 }}
                   >
-                    <FilmCard card={card} holoAnim={holoAnim} ownedCount={count} isHolo={pullHolo[i]} />
+                    <FilmCard card={card} ownedCount={count} isHolo={pullHolo[i]} />
                     {/* Badges posés *dans* la carte : en débord ils étaient
                         rognés par overflow-x: hidden sur .screen. */}
                     {isNew[card.id] && (

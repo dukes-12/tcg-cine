@@ -1,7 +1,6 @@
 import BobinesPill from '../components/BobinesPill';
 import FilmCard from '../components/FilmCard';
 import { CARDS, SECRET_RARITY_ID, rarityById } from '../data/catalog';
-import { useAnimations } from '../lib/useAnimations';
 import { HOLO_RECYCLE_MULTIPLIER, useStore } from '../state/store';
 
 /** Ported from the "DOUBLONS" block in TCG Ciné - Collection Cinéma.dc.html.
@@ -18,7 +17,6 @@ export default function DupesScreen() {
   const openDetail = useStore((s) => s.openDetail);
   const recycle = useStore((s) => s.recycle);
   const recycleHolo = useStore((s) => s.recycleHolo);
-  const holoAnim = useAnimations();
 
   // La carte secrète ne se recycle jamais, même en cas de double exemplaire
   // (1 chance sur 6 000 000 deux fois — en pratique jamais, mais on ne
@@ -50,7 +48,7 @@ export default function DupesScreen() {
             return (
               <div key={card.id} style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '10px 12px', borderRadius: 26, background: 'var(--color-surface)' }}>
                 <div className="pressable" onClick={() => openDetail(card.id)} style={{ width: 60, height: 84, flex: 'none', cursor: 'pointer' }}>
-                  <FilmCard card={card} holoAnim={holoAnim} ownedCount={n} />
+                  <FilmCard card={card} ownedCount={n} />
                 </div>
                 <div style={{ flex: 1, minWidth: 0 }}>
                   <div style={{ fontFamily: 'var(--font-heading)', fontSize: 15, lineHeight: 1.15 }}>{card.name}</div>
@@ -94,7 +92,7 @@ export default function DupesScreen() {
               return (
                 <div key={card.id} style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '10px 12px', borderRadius: 26, background: 'var(--color-surface)', boxShadow: 'inset 0 0 0 1.5px rgba(160,107,255,.35)' }}>
                   <div className="pressable" onClick={() => openDetail(card.id)} style={{ width: 60, height: 84, flex: 'none', cursor: 'pointer' }}>
-                    <FilmCard card={card} holoAnim={holoAnim} ownedCount={holoN} isHolo />
+                    <FilmCard card={card} ownedCount={holoN} isHolo />
                   </div>
                   <div style={{ flex: 1, minWidth: 0 }}>
                     <div style={{ fontFamily: 'var(--font-heading)', fontSize: 15, lineHeight: 1.15 }}>{card.name}</div>

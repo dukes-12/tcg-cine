@@ -1,6 +1,5 @@
 import { SECRET_RARITY_ID, cardById, rarityById } from '../data/catalog';
 import { RARITY_VISUALS } from '../data/rarityVisuals';
-import { useAnimations } from '../lib/useAnimations';
 import { useStore } from '../state/store';
 import FilmCard from './FilmCard';
 import TiltCard from './TiltCard';
@@ -18,7 +17,6 @@ export default function CardDetailOverlay() {
   const owned = useStore((s) => s.owned);
   const ownedHolo = useStore((s) => s.ownedHolo);
   const closeDetail = useStore((s) => s.closeDetail);
-  const holoAnim = useAnimations();
 
   if (detailId == null) return null;
   const card = cardById(detailId);
@@ -60,7 +58,7 @@ export default function CardDetailOverlay() {
       />
       <div style={{ width: 238, height: 332, animation: 'pigPop .3s ease both', position: 'relative', zIndex: 2 }}>
         <TiltCard>
-          <FilmCard card={card} big holoAnim={holoAnim} ownedCount={count + holoCount} isHolo={holoCount > 0} />
+          <FilmCard card={card} big ownedCount={count + holoCount} isHolo={holoCount > 0} />
         </TiltCard>
       </div>
       <div style={{ marginTop: 22, textAlign: 'center', color: 'var(--color-bg)', position: 'relative', zIndex: 2 }}>

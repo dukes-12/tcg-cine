@@ -12,7 +12,6 @@ import SoundToggle from '../components/SoundToggle';
 import FilmCard from '../components/FilmCard';
 import { CARDS, RARITIES, SECRET_CARD, SECRET_RARITY_ID, TOTAL_CARDS, rarityById } from '../data/catalog';
 import { RARITY_VISUALS } from '../data/rarityVisuals';
-import { useAnimations } from '../lib/useAnimations';
 import { useStore } from '../state/store';
 import type { RarityId } from '../types';
 
@@ -31,7 +30,6 @@ export default function ProfileScreen() {
   const openDetail = useStore((s) => s.openDetail);
   const logout = useStore((s) => s.logout);
   const debugTriggerSecret = useStore((s) => s.debugTriggerSecret);
-  const holoAnim = useAnimations();
   const navigate = useNavigate();
   const [mailboxOpen, setMailboxOpen] = useState(false);
   const [sqlOpen, setSqlOpen] = useState(false);
@@ -215,7 +213,7 @@ export default function ProfileScreen() {
             style={{ display: 'flex', alignItems: 'center', gap: 14, padding: '12px 14px', borderRadius: 28, background: 'var(--color-surface)', cursor: 'pointer' }}
           >
             <div style={{ width: 74, height: 104, flex: 'none' }}>
-              <FilmCard card={best} holoAnim={holoAnim} ownedCount={owned[best.id] || 0} />
+              <FilmCard card={best} ownedCount={owned[best.id] || 0} />
             </div>
             <div>
               <div style={{ fontFamily: 'var(--font-heading)', fontSize: 18, lineHeight: 1.15 }}>{best.name}</div>

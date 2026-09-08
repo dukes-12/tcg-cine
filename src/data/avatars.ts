@@ -12,14 +12,14 @@ export interface AvatarSkin {
 }
 
 export const AVATARS: AvatarSkin[] = [
-  { key: 'classique', name: 'Classique', bg: '#ffd2b4', holeColor: '#8c491a' },
-  { key: 'projecteur', name: 'Projecteur', bg: 'linear-gradient(160deg,#ffd2b4,#f6a06b)', holeColor: '#8c491a' },
-  { key: 'studio', name: 'Studio', bg: 'linear-gradient(160deg,#b2622d,#643312)', holeColor: '#2b1608' },
+  { key: 'classique', name: 'Classique', bg: 'var(--color-neutral-700)', holeColor: 'var(--color-neutral-300)' },
+  { key: 'projecteur', name: 'Projecteur', bg: 'linear-gradient(160deg,var(--color-accent-400),var(--color-accent-700))', holeColor: 'var(--color-accent-100)' },
+  { key: 'studio', name: 'Studio', bg: 'linear-gradient(160deg,var(--color-neutral-600),var(--color-neutral-900))', holeColor: 'var(--color-neutral-200)' },
   { key: 'dore', name: 'Doré', bg: 'linear-gradient(160deg,#ffe9b0,#c99a3a)', holeColor: '#4a3410' },
-  { key: 'nuit-violette', name: 'Nuit violette', bg: 'linear-gradient(160deg,#a678d8,#43206d)', holeColor: '#160a24' },
-  { key: 'plateau-vert', name: 'Plateau vert', bg: 'linear-gradient(160deg,#c3dba3,#5b7a3a)', holeColor: '#2f4a1a' },
-  { key: 'ecran-bleu', name: 'Écran bleu', bg: 'linear-gradient(150deg,#a9cdf5,#2f5c9e)', holeColor: '#e8f2ff' },
-  { key: 'onyx', name: 'Onyx', bg: '#201e1d', holeColor: '#ffe9b0' },
+  { key: 'nuit-violette', name: 'Nuit violette', bg: 'linear-gradient(160deg,var(--color-accent-500),var(--color-accent-900))', holeColor: 'var(--color-accent-100)' },
+  { key: 'plateau-vert', name: 'Plateau vert', bg: 'linear-gradient(160deg,#8fbf9e,#2f5c42)', holeColor: '#e6fff0' },
+  { key: 'ecran-bleu', name: 'Écran bleu', bg: 'linear-gradient(150deg,#8ec2f5,#2f5c9e)', holeColor: '#e8f2ff' },
+  { key: 'onyx', name: 'Onyx', bg: 'var(--color-bg)', holeColor: 'var(--color-accent-300)' },
 ];
 
 export const DEFAULT_AVATAR: AvatarKey = 'projecteur';

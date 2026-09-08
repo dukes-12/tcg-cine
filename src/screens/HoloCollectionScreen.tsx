@@ -4,7 +4,6 @@ import Chip from '../components/Chip';
 import FilmCard from '../components/FilmCard';
 import { CARDS, RARITIES, SECRET_RARITY_ID, TOTAL_CARDS, TYPES } from '../data/catalog';
 import { RARITY_VISUALS } from '../data/rarityVisuals';
-import { useAnimations } from '../lib/useAnimations';
 import { HOLO_CHANCE, useStore } from '../state/store';
 import type { Card, GridCols, RarityId, SortKey } from '../types';
 
@@ -26,7 +25,6 @@ export default function HoloCollectionScreen() {
   const gridCols = useStore((s) => s.gridCols);
   const setGridCols = useStore((s) => s.setGridCols);
   const openDetail = useStore((s) => s.openDetail);
-  const holoAnim = useAnimations();
   const navigate = useNavigate();
 
   const [sort, setSort] = useState<SortKey>('rarete');
@@ -216,7 +214,7 @@ export default function HoloCollectionScreen() {
               onClick={() => openDetail(card.id)}
               style={{ position: 'relative', aspectRatio: '0.72', cursor: 'pointer', minWidth: 0 }}
             >
-              <FilmCard card={card} holoAnim={holoAnim} ownedCount={holoCount} isHolo />
+              <FilmCard card={card} ownedCount={holoCount} isHolo />
               {holoCount > 1 && (
                 <span
                   style={{

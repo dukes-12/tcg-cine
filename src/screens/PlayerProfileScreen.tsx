@@ -5,7 +5,6 @@ import Chip from '../components/Chip';
 import FilmCard from '../components/FilmCard';
 import { CARDS, SECRET_RARITY_ID, TOTAL_CARDS } from '../data/catalog';
 import { apiFetchProfile } from '../lib/api';
-import { useAnimations } from '../lib/useAnimations';
 import { useStore } from '../state/store';
 import type { AvatarKey } from '../types';
 
@@ -30,7 +29,6 @@ export default function PlayerProfileScreen() {
   const { username } = useParams<{ username: string }>();
   const myOwned = useStore((s) => s.owned);
   const myOwnedHolo = useStore((s) => s.ownedHolo);
-  const holoAnim = useAnimations();
   const [tab, setTab] = useState<Tab>('classique');
   const [owned, setOwned] = useState<Record<string, number> | null>(null);
   const [ownedHolo, setOwnedHolo] = useState<Record<string, number>>({});
@@ -104,7 +102,7 @@ export default function PlayerProfileScreen() {
                 const missing = theirCount > 0 && (myActive[card.id] || 0) === 0;
                 return (
                   <div key={card.id} style={{ position: 'relative', aspectRatio: '0.72', minWidth: 0 }}>
-                    <FilmCard card={card} holoAnim={holoAnim} ownedCount={theirCount} isHolo={tab === 'holo'} />
+                    <FilmCard card={card} ownedCount={theirCount} isHolo={tab === 'holo'} />
                     {missing && (
                       <span
                         style={{
