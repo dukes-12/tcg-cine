@@ -9,7 +9,8 @@
     "build": "vite build",
     "preview": "vite preview",
     "lint": "eslint .",
-    "resize-cards": "node scripts/resize-cards.mjs"
+    "resize-cards": "node scripts/resize-cards.mjs",
+    "fetch-posters": "node scripts/fetch-tmdb-posters.mjs"
   },
   "dependencies": {
     "react": "^18.3.1",

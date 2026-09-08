@@ -107,6 +107,28 @@ chargement — pas de plantage, juste une carte en moins comptée.
   cassée) — vous pouvez ajouter l'entrée dans `cards.json` avant d'avoir
   l'image finale, et déposer le fichier plus tard sans rien changer d'autre.
 
+### Récupérer les affiches automatiquement via TMDb
+
+`scripts/fetch-tmdb-posters.mjs` va chercher une affiche par carte sur
+[TMDb](https://www.themoviedb.org/) et la dépose au bon endroit/nom. Il faut
+une clé API TMDb (gratuite, compte TMDb → Paramètres → API), passée en
+variable d'environnement — jamais en dur dans le code ni commitée :
+
+```bash
+TMDB_API_KEY=xxxxxxxx npm run fetch-posters       # tout le catalogue
+TMDB_API_KEY=xxxxxxxx npm run fetch-posters -- --only=12,45   # cartes ciblées
+TMDB_API_KEY=xxxxxxxx npm run fetch-posters -- --dry-run      # log sans télécharger
+```
+
+Ne retélécharge pas un fichier déjà présent (sauf `--force`). Les cartes
+sans correspondance claire sont juste loguées dans
+`scripts/tmdb-misses.json`, à traiter à la main (§ 1/2 ci-dessus).
+
+**Attribution obligatoire** : les CGU TMDb imposent de créditer TMDb dans
+l'interface tant que ses images sont utilisées — la mention est déjà en
+place dans `src/screens/ProfileScreen.tsx`, ne pas la retirer si vous gardez
+des affiches TMDb.
+
 ---
 
 ## 4. Table des raretés

@@ -226,6 +226,16 @@ export default function ProfileScreen() {
           </div>
         </div>
       )}
+
+      <div className="screen-inner" style={{ paddingTop: 22, paddingBottom: 22 }}>
+        <p style={{ fontSize: 10, opacity: 0.45, lineHeight: 1.5, textAlign: 'center' }}>
+          Les affiches de films affichées dans l'application proviennent de{' '}
+          <a href="https://www.themoviedb.org/" target="_blank" rel="noreferrer" style={{ color: 'inherit' }}>
+            TMDb
+          </a>
+          . Ce produit utilise l'API TMDb mais n'est ni approuvé ni certifié par TMDb.
+        </p>
+      </div>
     </div>
   );
 }
