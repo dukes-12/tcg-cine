@@ -1,8 +1,15 @@
 import { SECRET_RARITY_ID, cardById, rarityById } from '../data/catalog';
 import { RARITY_VISUALS } from '../data/rarityVisuals';
 import { useStore } from '../state/store';
+import type { CardStatus } from '../types';
 import FilmCard from './FilmCard';
 import TiltCard from './TiltCard';
+
+const STATUS_OPTIONS: { key: CardStatus; label: string }[] = [
+  { key: 'vu', label: 'Vu' },
+  { key: 'veut_voir', label: 'Veut le voir' },
+  { key: 'pas_interesse', label: "Ne m'intéresse pas" },
+];
 
 /** Card detail overlay — triggered by tapping any card anywhere in the app.
  *  Ported from the "DÉTAIL" block in TCG Ciné - Collection Cinéma.dc.html.
@@ -17,6 +24,8 @@ export default function CardDetailOverlay() {
   const owned = useStore((s) => s.owned);
   const ownedHolo = useStore((s) => s.ownedHolo);
   const closeDetail = useStore((s) => s.closeDetail);
+  const cardStatus = useStore((s) => s.cardStatus);
+  const setCardStatus = useStore((s) => s.setCardStatus);
 
   if (detailId == null) return null;
   const card = cardById(detailId);
@@ -61,11 +70,43 @@ export default function CardDetailOverlay() {
           <FilmCard card={card} big ownedCount={count + holoCount} isHolo={holoCount > 0} />
         </TiltCard>
       </div>
-      <div style={{ marginTop: 22, textAlign: 'center', color: 'var(--color-bg)', position: 'relative', zIndex: 2 }}>
+      <div style={{ marginTop: 22, textAlign: 'center', color: 'var(--color-bg)', position: 'relative', zIndex: 2, maxWidth: 300 }}>
         <div style={{ fontSize: 9, letterSpacing: '.2em', textTransform: 'uppercase', opacity: 0.7 }}>{rarity.name}</div>
         <h2 style={{ fontSize: 25, margin: '7px 0 0', color: 'var(--color-bg)', textWrap: 'balance' as const }}>{revealed ? card.name : '???'}</h2>
         <div style={{ fontSize: 12, opacity: 0.7, marginTop: 7 }}>{meta}</div>
+        {revealed && card.synopsis && (
+          <p style={{ fontSize: 12.5, opacity: 0.85, marginTop: 14, lineHeight: 1.5, textAlign: 'left' }}>{card.synopsis}</p>
+        )}
       </div>
+
+      {!isSecret && (
+        <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap', justifyContent: 'center', marginTop: 16, position: 'relative', zIndex: 2, maxWidth: 300 }}>
+          {STATUS_OPTIONS.map((opt) => {
+            const active = cardStatus[card.id] === opt.key;
+            return (
+              <button
+                key={opt.key}
+                className="pressable"
+                onClick={() => setCardStatus(card.id, opt.key)}
+                style={{
+                  cursor: 'pointer',
+                  border: 0,
+                  fontFamily: 'var(--font-body)',
+                  fontWeight: 700,
+                  fontSize: 11,
+                  padding: '7px 12px',
+                  borderRadius: 999,
+                  background: active ? 'var(--color-bg)' : 'rgba(255,255,255,.14)',
+                  color: active ? 'var(--color-text)' : 'var(--color-bg)',
+                }}
+              >
+                {opt.label}
+              </button>
+            );
+          })}
+        </div>
+      )}
+
       <button
         className="pressable"
         onClick={closeDetail}

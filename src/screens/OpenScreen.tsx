@@ -432,6 +432,37 @@ export default function OpenScreen() {
                 Tout révéler
               </button>
             )}
+
+            {/* Détail (synopsis + statut Vu/Veut voir/Pas intéressé) — action
+                séparée du tap-pour-continuer qui couvre tout le reste de cette
+                zone : sans stopPropagation, ouvrir le détail ferait aussi
+                avancer la révélation. Uniquement une fois la carte retournée
+                (avant, il n'y a rien à détailler). */}
+            {revealed && (
+              <button
+                className="pressable"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  openDetail(card.id);
+                }}
+                style={{
+                  marginTop: pull.length > 1 ? 8 : 18,
+                  position: 'relative',
+                  zIndex: 2,
+                  cursor: 'pointer',
+                  border: 0,
+                  fontFamily: 'var(--font-heading)',
+                  fontSize: 12.5,
+                  padding: '9px 18px',
+                  borderRadius: 999,
+                  background: 'transparent',
+                  color: 'var(--color-text)',
+                  boxShadow: 'inset 0 0 0 1px var(--color-divider)',
+                }}
+              >
+                Détail
+              </button>
+            )}
           </div>
         );
       })()}

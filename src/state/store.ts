@@ -24,6 +24,7 @@ import type {
   AvatarKey,
   Card,
   CardBackKey,
+  CardStatus,
   CardType,
   GridCols,
   Pack,
@@ -100,6 +101,10 @@ export const HOLO_CHANCE = 1 / 15;
 export const HOLO_RECYCLE_MULTIPLIER = 3;
 
 interface PersistedState {
+  /** Statut personnel sur un film (Vu / Veut le voir / Ne m'intéresse pas) —
+   *  indépendant de `owned` : peut être posé sur un film pas encore tiré.
+   *  Absent de la map = pas de statut. Voir CardDetailOverlay. */
+  cardStatus: Record<number, CardStatus>;
   owned: Record<number, number>;
   /** Collection holo — *indépendante* de `owned` (pas un sous-ensemble) :
    *  un tirage holo n'incrémente que celle-ci, voir HOLO_CHANCE plus haut. */
@@ -168,6 +173,9 @@ interface Actions {
   toggleOwnedOnly: () => void;
   openDetail: (id: number) => void;
   closeDetail: () => void;
+  /** Pose le statut sur ce film — un second clic sur le même statut
+   *  l'enlève (toggle), voir CardDetailOverlay. */
+  setCardStatus: (id: number, status: CardStatus) => void;
   setCardBack: (key: CardBackKey) => void;
   setAvatar: (key: AvatarKey) => void;
   setAvatarPhoto: (dataUri: string | null) => void;
@@ -239,6 +247,7 @@ let dragStartX = 0;
  *  collection déjà présente sur l'appareil. */
 function persistedSlice(s: Store): PersistedState {
   return {
+    cardStatus: s.cardStatus,
     owned: s.owned,
     ownedHolo: s.ownedHolo,
     bobines: s.bobines,
@@ -279,6 +288,7 @@ function mergeServer(current: Store, incoming: Partial<PersistedState>): Partial
     animPref: incoming.animPref ?? current.animPref,
     soundOn: incoming.soundOn ?? current.soundOn,
     stock: incoming.stock ?? current.stock,
+    cardStatus: incoming.cardStatus ?? current.cardStatus,
     owned: incoming.owned ?? current.owned,
     ownedHolo: incoming.ownedHolo ?? current.ownedHolo,
     wheelSpins: incoming.wheelSpins ?? current.wheelSpins,
@@ -351,6 +361,7 @@ export const useStore = create<Store>()(
   persist(
     (set, get) => ({
       // ── persisted (miroir local — la source de vérité est le compte) ──
+      cardStatus: {},
       owned: {},
       ownedHolo: {},
       bobines: 0,
@@ -412,6 +423,13 @@ export const useStore = create<Store>()(
         set({ soundOn });
       },
       closeDetail: () => set({ detail: null }),
+      setCardStatus: (id, status) =>
+        set((s) => {
+          const next = { ...s.cardStatus };
+          if (next[id] === status) delete next[id];
+          else next[id] = status;
+          return { cardStatus: next };
+        }),
 
       setCardBack: (key) => {
         const s = get();

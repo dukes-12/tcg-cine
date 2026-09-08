@@ -78,7 +78,7 @@ export default function WheelOverlay() {
               justifyContent: 'center',
             }}
           >
-            <ReelEmblem width={62} height={50} holeWidth={9} holeHeight={16} gap={9} bg="#ffd2b4" />
+            <ReelEmblem width={62} height={50} holeWidth={9} holeHeight={16} gap={9} bg="var(--color-accent-300)" />
           </div>
         ) : (
           <div
@@ -94,14 +94,14 @@ export default function WheelOverlay() {
               filter: 'grayscale(1)',
             }}
           >
-            <ReelEmblem width={62} height={50} holeWidth={9} holeHeight={16} gap={9} bg="#ffd2b4" />
+            <ReelEmblem width={62} height={50} holeWidth={9} holeHeight={16} gap={9} bg="var(--color-accent-300)" />
           </div>
         )}
       </div>
 
       <div style={{ marginTop: 22, textAlign: 'center', color: 'var(--color-bg)', position: 'relative', zIndex: 2, maxWidth: 280 }}>
         <h2 style={{ fontSize: 23, margin: 0, color: 'var(--color-bg)', textWrap: 'balance' as const }}>
-          {wheelWon ? 'Gagné !' : 'Rentre chez ta mère.'}
+          {wheelWon ? 'Gagné !' : 'Pas cette fois.'}
         </h2>
         <div style={{ fontSize: 12.5, opacity: 0.75, marginTop: 8, textWrap: 'pretty' as const }}>
           {wheelWon ? 'Un Ticket simple ajouté en poche.' : 'Perdu. Retente ta chance.'}

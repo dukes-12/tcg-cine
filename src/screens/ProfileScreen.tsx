@@ -50,7 +50,7 @@ export default function ProfileScreen() {
     return candidates[0] || CARDS[0];
   }, [ownedIds]);
 
-  const rank = uniq >= TOTAL_CARDS ? 'Grand Maître Truffier' : uniq > TOTAL_CARDS * 0.6 ? 'Éleveur confirmé' : 'Apprenti fermier';
+  const rank = uniq >= TOTAL_CARDS ? 'Grand Projectionniste' : uniq > TOTAL_CARDS * 0.6 ? 'Cinéphile confirmé' : 'Spectateur débutant';
 
   const stats = [
     { val: `${uniq}/${TOTAL_CARDS}`, label: 'Cartes uniques' },
@@ -155,7 +155,7 @@ export default function ProfileScreen() {
       <div className="screen-inner" style={{ paddingTop: 18, display: 'flex', alignItems: 'center', gap: 14 }}>
         <Avatar avatar={avatar} photo={avatarPhoto} size={74} />
         <div>
-          <div style={{ fontFamily: 'var(--font-heading)', fontSize: 22, lineHeight: 1.1 }}>{account ?? 'Éleveur Grouik'}</div>
+          <div style={{ fontFamily: 'var(--font-heading)', fontSize: 22, lineHeight: 1.1 }}>{account ?? 'Spectateur anonyme'}</div>
           <div style={{ fontSize: 11.5, opacity: 0.6, marginTop: 4 }}>{account ? rank : 'Pas encore connecté'}</div>
         </div>
       </div>

@@ -29,6 +29,9 @@ export interface Card {
   rarity: RarityId;
   image: string;
   slotId: string;
+  /** Court synopsis (TMDb `overview`, via scripts/fetch-tmdb-posters.mjs
+   *  --with-synopsis) — absent si jamais récupéré, voir CardDetailOverlay. */
+  synopsis?: string;
 }
 
 export type PackKey = 'basic' | 'foire' | 'doree';
@@ -57,6 +60,12 @@ export interface CardCatalog {
 /** Les dos de carte — voir src/data/cardBacks.ts. `sceau` est le dos par
  *  défaut, les trois autres s'achètent en bobines. */
 export type CardBackKey = 'sceau' | 'souille' | 'deco' | 'nuit';
+
+/** Statut personnel sur un film — indépendant de la possession de la
+ *  carte (on peut noter "veut voir" un film qu'on n'a pas encore tiré).
+ *  Un clic sur le bouton déjà actif le désactive (retour à `undefined`,
+ *  la carte n'apparaît alors dans `cardStatus`). Voir CardDetailOverlay. */
+export type CardStatus = 'vu' | 'veut_voir' | 'pas_interesse';
 
 /** Préférence d'animations — voir src/lib/useAnimations.ts. */
 export type AnimationPref = 'auto' | 'on' | 'off';

@@ -70,12 +70,18 @@ export function buildCardVisual(card: Card, opts: BuildCardOptions = {}): CardVi
     height: '100%',
     borderRadius: big ? 18 : 12,
     padding: big ? 2.5 : 1.5,
+    // Cartes pas encore possédées : le cadre reste sombre (rien à montrer),
+    // mais teinté par l'encre de la rareté — pas un gris générique — pour
+    // qu'on repère les cartes rares/chase dans la grille avant même de les
+    // avoir tirées. Nettement plus discret que le cadre "possédée" (teinte
+    // mélangée à du gris foncé, pas de halo fort) pour rester lisible comme
+    // "verrouillée".
     background: !owned
-      ? 'linear-gradient(152deg, #5c5f69 0%, #33353d 45%, #46484f 70%, #62646d 100%)'
+      ? `linear-gradient(152deg, color-mix(in srgb, ${ink} 55%, #3a3d46) 0%, #24262e 45%, #2c2e37 70%, color-mix(in srgb, ${ink} 40%, #4a4d58) 100%)`
       : holo
         ? `linear-gradient(155deg, rgba(233,233,237,.5), ${glow} 45%, rgba(20,21,32,.9) 70%, rgba(233,233,237,.35))`
         : `linear-gradient(152deg, #d8dbe2 0%, #8b8f9c 18%, #4a4d58 38%, ${ink} 52%, #2c2e37 66%, #9a9eab 84%, #ced1d9 100%)`,
-    boxShadow: owned ? `0 0 ${big ? 26 : 12}px ${glow}` : 'none',
+    boxShadow: owned ? `0 0 ${big ? 26 : 12}px ${glow}` : `0 0 ${big ? 14 : 6}px color-mix(in srgb, ${glow} 55%, transparent)`,
     boxSizing: 'border-box',
   };
 
