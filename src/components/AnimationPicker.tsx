@@ -36,7 +36,7 @@ export default function AnimationPicker() {
               padding: '6px 13px',
               borderRadius: 999,
               whiteSpace: 'nowrap',
-              background: pref === o.key ? 'var(--color-accent)' : 'var(--color-neutral-200)',
+              background: pref === o.key ? 'var(--color-accent)' : 'var(--color-neutral-800)',
               color: pref === o.key ? 'var(--color-bg)' : 'var(--color-text)',
               boxShadow: pref === o.key ? 'var(--shadow-sm)' : 'inset 0 0 0 1px var(--color-divider)',
             }}

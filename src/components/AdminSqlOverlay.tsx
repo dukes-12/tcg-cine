@@ -164,7 +164,7 @@ export default function AdminSqlOverlay({ onClose }: { onClose: () => void }) {
                   <button className="pressable" onClick={() => run(q.id)} disabled={runState?.loading} style={btnStyle('var(--color-accent)', 'var(--color-bg)')}>
                     {runState?.loading ? 'Exécution…' : 'Exécuter'}
                   </button>
-                  <button className="pressable" onClick={() => save(q.id)} style={btnStyle('var(--color-neutral-200)', 'var(--color-text)')}>
+                  <button className="pressable" onClick={() => save(q.id)} style={btnStyle('var(--color-neutral-800)', 'var(--color-text)')}>
                     Enregistrer
                   </button>
                   <button className="pressable" onClick={() => remove(q.id)} style={{ ...btnStyle('none', 'var(--color-text)'), marginLeft: 'auto', opacity: 0.5 }}>

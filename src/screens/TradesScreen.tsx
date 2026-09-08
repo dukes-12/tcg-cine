@@ -308,7 +308,7 @@ function CardPicker({
                     top: 4,
                     left: 4,
                     background: 'var(--color-neutral-900)',
-                    color: 'var(--color-bg)',
+                    color: 'var(--color-text)',
                     fontSize: 7.5,
                     fontWeight: 700,
                     padding: '2px 5px',
@@ -444,12 +444,12 @@ function TradeRow({
               <button className="pressable" onClick={() => onRespond(trade.id, 'accept')} style={smallBtn('var(--color-accent)', 'var(--color-bg)')}>
                 Accepter
               </button>
-              <button className="pressable" onClick={() => onRespond(trade.id, 'decline')} style={smallBtn('var(--color-neutral-200)', 'var(--color-text)')}>
+              <button className="pressable" onClick={() => onRespond(trade.id, 'decline')} style={smallBtn('var(--color-neutral-800)', 'var(--color-text)')}>
                 Refuser
               </button>
             </>
           ) : (
-            <button className="pressable" onClick={() => onRespond(trade.id, 'cancel')} style={smallBtn('var(--color-neutral-200)', 'var(--color-text)')}>
+            <button className="pressable" onClick={() => onRespond(trade.id, 'cancel')} style={smallBtn('var(--color-neutral-800)', 'var(--color-text)')}>
               Annuler
             </button>
           )}

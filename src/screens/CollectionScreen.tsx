@@ -151,7 +151,7 @@ export default function CollectionScreen() {
           placeholder="Chercher un film…"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
-          style={{ flex: 1, minWidth: 0, background: 'var(--color-neutral-100)' }}
+          style={{ flex: 1, minWidth: 0, background: 'var(--color-surface)' }}
         />
         <button
           className="pressable"
@@ -165,7 +165,7 @@ export default function CollectionScreen() {
             fontSize: 11.5,
             padding: '9px 14px',
             borderRadius: 999,
-            background: ownedOnly ? 'var(--color-accent-2-600)' : 'var(--color-neutral-200)',
+            background: ownedOnly ? 'var(--color-accent-2-600)' : 'var(--color-neutral-800)',
             color: ownedOnly ? 'var(--color-bg)' : 'var(--color-text)',
             boxShadow: ownedOnly ? 'var(--shadow-sm)' : 'inset 0 0 0 1px var(--color-divider)',
           }}
@@ -238,7 +238,7 @@ export default function CollectionScreen() {
                     top: 5,
                     right: 5,
                     background: 'var(--color-neutral-900)',
-                    color: 'var(--color-bg)',
+                    color: 'var(--color-text)',
                     fontSize: gridCols === 4 ? 8.5 : 9.5,
                     fontWeight: 700,
                     padding: '2px 6px',

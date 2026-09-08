@@ -137,14 +137,14 @@ export default function OpenScreen() {
                   left: 0,
                   right: 0,
                   height: 24,
-                  background: 'repeating-linear-gradient(90deg,rgba(245,234,216,.85) 0 9px,transparent 9px 18px)',
+                  background: 'repeating-linear-gradient(90deg,rgba(255,255,255,.35) 0 9px,transparent 9px 18px)',
                   opacity: 0.45,
                 }}
               />
-              <ReelEmblem width={98} height={80} holeWidth={15} holeHeight={24} gap={15} boxShadow="inset 0 -7px 14px rgba(140,73,26,.35)" />
-              <div style={{ fontFamily: 'var(--font-heading)', fontSize: 27, color: '#fff6ef', marginTop: 18, textAlign: 'center', lineHeight: 1 }}>CINÉ</div>
-              <div style={{ fontSize: 9, letterSpacing: '.26em', textTransform: 'uppercase', color: '#ffd2b4', marginTop: 9 }}>{pack.subtitle}</div>
-              <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, height: 46, background: 'linear-gradient(0deg,rgba(64,35,16,.45),transparent)' }} />
+              <ReelEmblem width={98} height={80} holeWidth={15} holeHeight={24} gap={15} bg="rgba(0,0,0,.28)" holeColor="rgba(255,255,255,.85)" boxShadow="inset 0 -7px 14px rgba(0,0,0,.35)" />
+              <div style={{ fontFamily: 'var(--font-heading)', fontSize: 27, color: '#fff', marginTop: 18, textAlign: 'center', lineHeight: 1 }}>CINÉ</div>
+              <div style={{ fontSize: 9, letterSpacing: '.26em', textTransform: 'uppercase', color: 'rgba(255,255,255,.7)', marginTop: 9 }}>{pack.subtitle}</div>
+              <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, height: 46, background: 'linear-gradient(0deg,rgba(0,0,0,.4),transparent)' }} />
             </div>
           </div>
 
@@ -518,7 +518,7 @@ export default function OpenScreen() {
                           top: 5,
                           right: 5,
                           background: 'var(--color-neutral-900)',
-                          color: 'var(--color-bg)',
+                          color: 'var(--color-text)',
                           fontSize: 9.5,
                           fontWeight: 700,
                           padding: '2px 6px',

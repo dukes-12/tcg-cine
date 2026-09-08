@@ -47,7 +47,7 @@ export default function CardBackPicker() {
                       top: 12,
                       left: 12,
                       background: 'var(--color-neutral-900)',
-                      color: 'var(--color-bg)',
+                      color: 'var(--color-text)',
                       fontSize: 9,
                       fontWeight: 700,
                       letterSpacing: '.08em',

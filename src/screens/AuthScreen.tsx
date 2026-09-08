@@ -7,7 +7,7 @@ const inputStyle: React.CSSProperties = {
   padding: '13px 16px',
   borderRadius: 16,
   border: 0,
-  background: 'var(--color-neutral-100)',
+  background: 'var(--color-surface)',
   color: 'var(--color-text)',
   width: '100%',
   boxSizing: 'border-box',
@@ -53,7 +53,7 @@ export default function AuthScreen() {
         </div>
       </div>
 
-      <div style={{ display: 'flex', width: '100%', maxWidth: 320, borderRadius: 999, background: 'var(--color-neutral-200)', padding: 3 }}>
+      <div style={{ display: 'flex', width: '100%', maxWidth: 320, borderRadius: 999, background: 'var(--color-neutral-800)', padding: 3 }}>
         {(['login', 'register'] as const).map((m) => (
           <button
             key={m}

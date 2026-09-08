@@ -69,19 +69,20 @@ export function buildCardVisual(card: Card, opts: BuildCardOptions = {}): CardVi
     width: '100%',
     height: '100%',
     borderRadius: big ? 18 : 12,
-    padding: big ? 2.5 : 1.5,
-    // Cartes pas encore possédées : le cadre reste sombre (rien à montrer),
-    // mais teinté par l'encre de la rareté — pas un gris générique — pour
-    // qu'on repère les cartes rares/chase dans la grille avant même de les
-    // avoir tirées. Nettement plus discret que le cadre "possédée" (teinte
-    // mélangée à du gris foncé, pas de halo fort) pour rester lisible comme
-    // "verrouillée".
+    // Cartes pas encore possédées : cadre nettement plus épais que celui
+    // d'une carte possédée — c'est la seule information disponible avant de
+    // l'avoir tirée, il doit se voir tout de suite dans la grille, pas se
+    // deviner en plissant les yeux.
+    padding: !owned ? (big ? 4 : 3) : big ? 2.5 : 1.5,
+    // Teinté par l'encre de la rareté à pleine saturation (pas un mélange
+    // discret) — une Épique+ doit sauter aux yeux dans la grille Collection
+    // avant même d'être tirée, exactement comme demandé.
     background: !owned
-      ? `linear-gradient(152deg, color-mix(in srgb, ${ink} 55%, #3a3d46) 0%, #24262e 45%, #2c2e37 70%, color-mix(in srgb, ${ink} 40%, #4a4d58) 100%)`
+      ? `linear-gradient(152deg, color-mix(in srgb, ${ink} 88%, #24262e) 0%, #1a1c24 45%, #20222b 70%, color-mix(in srgb, ${ink} 75%, #24262e) 100%)`
       : holo
         ? `linear-gradient(155deg, rgba(233,233,237,.5), ${glow} 45%, rgba(20,21,32,.9) 70%, rgba(233,233,237,.35))`
         : `linear-gradient(152deg, #d8dbe2 0%, #8b8f9c 18%, #4a4d58 38%, ${ink} 52%, #2c2e37 66%, #9a9eab 84%, #ced1d9 100%)`,
-    boxShadow: owned ? `0 0 ${big ? 26 : 12}px ${glow}` : `0 0 ${big ? 14 : 6}px color-mix(in srgb, ${glow} 55%, transparent)`,
+    boxShadow: owned ? `0 0 ${big ? 26 : 12}px ${glow}` : `0 0 ${big ? 20 : 9}px color-mix(in srgb, ${glow} 85%, transparent)`,
     boxSizing: 'border-box',
   };
 

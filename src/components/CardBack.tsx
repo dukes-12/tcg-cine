@@ -1,6 +1,7 @@
 import type { CSSProperties } from 'react';
 import { cardBackByKey } from '../data/cardBacks';
 import type { CardBackKey } from '../types';
+import ReelEmblem from './ReelEmblem';
 
 /** Le dos d'une carte, sur la marque CINÉ. Quatre habillages (voir
  *  `data/cardBacks.ts`), une seule géométrie, mise à l'échelle par `width`.
@@ -127,21 +128,7 @@ export default function CardBack({
             justifyContent: 'center',
           }}
         >
-          <div
-            style={{
-              width: px(60),
-              height: px(48),
-              borderRadius: '50%',
-              background: b.reelEmblemBg,
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              gap: px(11),
-            }}
-          >
-            <i style={{ display: 'block', width: px(10), height: px(16), borderRadius: '50%', background: b.hole }} />
-            <i style={{ display: 'block', width: px(10), height: px(16), borderRadius: '50%', background: b.hole }} />
-          </div>
+          <ReelEmblem width={px(60)} height={px(48)} holeWidth={px(8)} holeHeight={px(8)} gap={px(7)} bg={b.reelEmblemBg} holeColor={b.hole} />
         </div>
       </div>
 

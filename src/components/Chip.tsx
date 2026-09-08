@@ -14,7 +14,7 @@ export default function Chip({ label, active, onClick }: { label: string; active
         borderRadius: 999,
         lineHeight: 1.2,
         whiteSpace: 'nowrap',
-        background: active ? 'var(--color-accent)' : 'var(--color-neutral-200)',
+        background: active ? 'var(--color-accent)' : 'var(--color-neutral-800)',
         color: active ? 'var(--color-bg)' : 'var(--color-text)',
         boxShadow: active ? 'var(--shadow-sm)' : 'inset 0 0 0 1px var(--color-divider)',
       }}
