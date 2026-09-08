@@ -28,18 +28,9 @@ export default function FreeBoosterBanner() {
       : `Prochain sac gratuit dans ${formatCountdown(nextFreeBoosterAt - Date.now())}.`;
 
   return (
-    <div
-      style={{
-        display: 'flex',
-        gap: 13,
-        alignItems: 'center',
-        padding: 13,
-        borderRadius: 30,
-        background: 'var(--color-surface)',
-        boxShadow: 'inset 0 0 0 2px var(--color-accent-2-500)',
-      }}
-    >
+    <div className="booster-panel booster-panel--reward">
       <div
+        className="booster-art booster-art--gift"
         style={{
           position: 'relative',
           width: 66,
@@ -74,26 +65,18 @@ export default function FreeBoosterBanner() {
         )}
       </div>
       <div style={{ flex: 1, minWidth: 0 }}>
-        <div style={{ fontFamily: 'var(--font-heading)', fontSize: 18, lineHeight: 1.1 }}>Sac gratuit</div>
-        <div style={{ fontSize: 11.5, opacity: 0.65, marginTop: 4, textWrap: 'pretty' as const }}>{subtitle}</div>
+        <div className="booster-title">Sac gratuit</div>
+        <div className="booster-description">{subtitle}</div>
       </div>
       <button
-        className="pressable"
+        className="btn btn-primary booster-action"
+        type="button"
         disabled={freeBoosters <= 0}
         onClick={() => {
           claimFreeBooster();
           navigate('/open');
         }}
-        style={{
-          cursor: freeBoosters > 0 ? 'pointer' : 'not-allowed',
-          border: 0,
-          fontFamily: 'var(--font-heading)',
-          fontSize: 12,
-          padding: '8px 14px',
-          borderRadius: 999,
-          background: freeBoosters > 0 ? 'var(--color-accent-2-600)' : 'var(--color-neutral-300)',
-          color: freeBoosters > 0 ? 'var(--color-bg)' : 'var(--color-neutral-600)',
-        }}
+
       >
         Ouvrir
       </button>

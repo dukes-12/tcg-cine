@@ -4,15 +4,6 @@ import { readAndCompressPhoto } from '../lib/photo';
 import { useStore } from '../state/store';
 import Avatar from './Avatar';
 
-const tileStyle = (active: boolean) => ({
-  cursor: 'pointer' as const,
-  border: 0,
-  background: 'transparent',
-  padding: 4,
-  borderRadius: '50%',
-  boxShadow: active ? '0 0 0 3px var(--color-accent)' : '0 0 0 1px var(--color-divider)',
-});
-
 /** Profil → Photo de profil : soit une vraie photo choisie dans la galerie
  *  de l'appareil (compressée en local, voir lib/photo.ts), soit un avatar
  *  préréglé — tous débloqués d'office, contrairement aux dos de carte
@@ -57,11 +48,12 @@ export default function AvatarPicker() {
 
         {avatarPhoto ? (
           <div style={{ position: 'relative' }}>
-            <button className="pressable" onClick={() => fileRef.current?.click()} title="Changer la photo" style={tileStyle(true)}>
+            <button type="button" className="avatar-choice is-selected" onClick={() => fileRef.current?.click()} title="Changer la photo">
               <Avatar avatar={avatar} photo={avatarPhoto} size={52} boxShadow="none" />
             </button>
             <button
               className="pressable"
+              type="button"
               onClick={() => setAvatarPhoto(null)}
               title="Retirer la photo"
               aria-label="Retirer la photo"
@@ -88,37 +80,26 @@ export default function AvatarPicker() {
           </div>
         ) : (
           <button
-            className="pressable"
+            className="avatar-choice avatar-choice--upload"
+            type="button"
             onClick={() => fileRef.current?.click()}
             disabled={busy}
             title="Choisir une photo"
-            style={{
-              width: 60,
-              height: 60,
-              borderRadius: '50%',
-              border: 0,
-              cursor: busy ? 'default' : 'pointer',
-              background: 'var(--color-neutral-800)',
-              color: 'var(--color-text)',
-              boxShadow: 'inset 0 0 0 1px var(--color-divider)',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              fontSize: 20,
-              opacity: busy ? 0.5 : 1,
-            }}
+            aria-label="Ajouter une photo"
+            aria-busy={busy}
           >
-            {busy ? '…' : '+'}
+            {busy ? '…' : <><span aria-hidden="true">＋</span><span className="sr-only">Ajouter une photo</span></>}
           </button>
         )}
 
         {AVATARS.map((a) => (
           <button
             key={a.key}
-            className="pressable"
+            className={`avatar-choice${!avatarPhoto && avatar === a.key ? ' is-selected' : ''}`}
+            type="button"
             onClick={() => pickPreset(a.key)}
             title={a.name}
-            style={tileStyle(!avatarPhoto && avatar === a.key)}
+            aria-label={`Choisir l’avatar ${a.name}`}
           >
             <Avatar avatar={a.key} size={52} boxShadow="none" />
           </button>

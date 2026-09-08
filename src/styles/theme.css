@@ -128,12 +128,14 @@ figcaption {
   font-family: var(--font-heading); font-weight: var(--font-heading-weight);
   font-size: 14px; line-height: 1.2; color: var(--color-text);
   background: transparent; border: 1px solid transparent;
-  padding: var(--space-2) calc(var(--space-3) * 1.2);
-  border-radius: var(--radius-md);
+  min-height: 44px; padding: 9px 16px;
+  border-radius: 999px;
+  transition: transform .12s ease, background-color .18s ease, border-color .18s ease, opacity .18s ease;
 }
+.btn:active:not(:disabled) { transform: scale(.97); }
 .btn svg { display: block; }
 .btn:disabled { opacity: 0.45; cursor: not-allowed; }
-.btn-primary { color: var(--color-accent); border-color: var(--color-accent); }
+.btn-primary { color: var(--color-bg); border-color: var(--color-accent); background: var(--color-accent); font-weight: 700; }
 .btn-primary:hover { background: color-mix(in srgb, var(--color-accent) 12%, transparent); }
 .btn-primary:active { background: color-mix(in srgb, var(--color-accent) 22%, transparent); }
 .btn-secondary { border-color: var(--color-divider); }

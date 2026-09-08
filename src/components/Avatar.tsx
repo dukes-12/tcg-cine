@@ -1,4 +1,4 @@
-import type { CSSProperties } from 'react';
+import { useState, type CSSProperties } from 'react';
 import { avatarByKey } from '../data/avatars';
 import type { AvatarKey } from '../types';
 import ReelEmblem from './ReelEmblem';
@@ -22,21 +22,26 @@ export default function Avatar({
   boxShadow?: string;
   style?: CSSProperties;
 }) {
-  if (photo) {
+  const [photoFailed, setPhotoFailed] = useState(false);
+
+  if (photo && !photoFailed) {
     return (
       <img
+        className="account-avatar"
         src={photo}
         alt=""
         width={size}
         height={size}
-        style={{ width: size, height: size, borderRadius: '50%', objectFit: 'cover', flex: 'none', boxShadow, ...style }}
+        onError={() => setPhotoFailed(true)}
+        style={{ width: size, height: size, boxShadow, ...style }}
       />
     );
   }
 
   const a = avatarByKey(avatar);
   return (
-    <ReelEmblem
+    <span className="account-avatar account-avatar--preset" style={{ width: size, height: size, boxShadow, ...style }}>
+      <ReelEmblem
       width={size}
       height={size}
       holeWidth={Math.round(size * 0.16)}
@@ -44,8 +49,8 @@ export default function Avatar({
       gap={Math.round(size * 0.15)}
       bg={a.bg}
       holeColor={a.holeColor}
-      boxShadow={boxShadow}
-      style={style}
-    />
+        boxShadow="none"
+      />
+    </span>
   );
 }

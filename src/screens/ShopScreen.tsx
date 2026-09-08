@@ -8,17 +8,6 @@ import { PACKS } from '../data/catalog';
 import { PACK_VISUALS } from '../data/packVisuals';
 import { useStore } from '../state/store';
 
-const smallBtn = (bg: string, col: string) => ({
-  cursor: 'pointer' as const,
-  border: 0,
-  fontFamily: 'var(--font-heading)',
-  fontSize: 12,
-  padding: '8px 14px',
-  borderRadius: 999,
-  background: bg,
-  color: col,
-});
-
 /** Ported from the "BOUTIQUE" block in TCG Ciné - Collection Cinéma.dc.html.
  *  Deux bandeaux de sachets gratuits, cumulatifs : le versement quotidien
  *  (+3, directement dans le stock) et le sac horaire (réserve à part). */
@@ -52,18 +41,14 @@ export default function ShopScreen() {
           const inPocket = stock[pk.key] || 0;
           return (
             <div
+              className={`booster-panel${pk.key === activePack ? ' is-selected' : ''}`}
               key={pk.key}
               style={{
-                display: 'flex',
-                gap: 13,
-                alignItems: 'center',
-                padding: 13,
-                borderRadius: 30,
-                background: 'var(--color-surface)',
-                boxShadow: pk.key === activePack ? 'inset 0 0 0 2px var(--color-accent)' : 'none',
+                '--booster-color': visual.bg,
               }}
             >
               <div
+                className="booster-art"
                 style={{
                   width: 58,
                   height: 78,
@@ -79,8 +64,8 @@ export default function ShopScreen() {
                 <i className="ph ph-film-strip" style={{ fontSize: 24, color: '#fff' }} />
               </div>
               <div style={{ flex: 1, minWidth: 0 }}>
-                <div style={{ fontFamily: 'var(--font-heading)', fontSize: 18, lineHeight: 1.1 }}>{pk.name}</div>
-                <div style={{ fontSize: 11.5, opacity: 0.65, marginTop: 4, textWrap: 'pretty' as const }}>{visual.desc}</div>
+                <div className="booster-title">{pk.name}</div>
+                <div className="booster-description">{visual.desc}</div>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginTop: 10 }}>
                   <span
                     style={{
@@ -97,17 +82,17 @@ export default function ShopScreen() {
                   <span style={{ fontSize: 10, opacity: 0.5, fontWeight: 700 }}>En poche : {inPocket}</span>
                 </div>
               </div>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
-                <button className="pressable" onClick={() => buyPack(pk.key)} style={smallBtn('var(--color-accent)', 'var(--color-bg)')}>
+              <div className="booster-actions">
+                <button type="button" className="btn btn-primary" onClick={() => buyPack(pk.key)}>
                   Acheter
                 </button>
                 <button
-                  className="pressable"
+                  type="button"
+                  className="btn btn-secondary"
                   onClick={() => {
                     selectPackForOpening(pk.key);
                     navigate('/open');
                   }}
-                  style={{ cursor: 'pointer', border: 0, fontFamily: 'var(--font-heading)', fontSize: 12, padding: '8px 14px', borderRadius: 999, background: 'transparent', color: 'var(--color-text)', boxShadow: 'inset 0 0 0 1px var(--color-divider)' }}
                 >
                   Ouvrir
                 </button>

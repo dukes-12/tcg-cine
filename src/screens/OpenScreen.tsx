@@ -16,34 +16,6 @@ import { useRevealed } from '../lib/useRevealed';
 import { useStore } from '../state/store';
 import type { RarityId } from '../types';
 
-const openBtnStyle = {
-  width: '100%',
-  marginTop: 16,
-  cursor: 'pointer' as const,
-  border: 0,
-  fontFamily: 'var(--font-heading)',
-  fontSize: 16,
-  padding: '14px',
-  borderRadius: 999,
-  background: 'var(--color-accent)',
-  color: 'var(--color-bg)',
-  boxShadow: 'var(--shadow-sm)',
-};
-
-const ghostBtnStyle = {
-  width: '100%',
-  marginTop: 9,
-  cursor: 'pointer' as const,
-  border: 0,
-  fontFamily: 'var(--font-heading)',
-  fontSize: 15,
-  padding: '13px',
-  borderRadius: 999,
-  background: 'transparent',
-  color: 'var(--color-text)',
-  boxShadow: 'inset 0 0 0 1px var(--color-divider)',
-};
-
 /** Ported from the "OUVERTURE" block in TCG Ciné - Collection Cinéma.dc.html —
  *  the idle → tearing → reveal → summary state machine.
  *
@@ -156,7 +128,7 @@ export default function OpenScreen() {
             </div>
           </div>
 
-          <button className="pressable" onClick={tearOrShop} style={openBtnStyle}>
+          <button type="button" className="btn btn-primary btn-block open-action" onClick={tearOrShop}>
             {tearLabel}
           </button>
 
@@ -541,10 +513,10 @@ export default function OpenScreen() {
                 );
               })}
             </div>
-            <button className="pressable" onClick={tearOrShop} style={openBtnStyle}>
+            <button type="button" className="btn btn-primary btn-block open-action" onClick={tearOrShop}>
               {tearLabel}
             </button>
-            <button className="pressable" onClick={() => navigate('/collection')} style={ghostBtnStyle}>
+            <button type="button" className="btn btn-secondary btn-block" onClick={() => navigate('/collection')}>
               Voir la collection
             </button>
           </div>
