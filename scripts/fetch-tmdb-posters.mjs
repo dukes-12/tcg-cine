@@ -67,7 +67,14 @@ async function searchMovie(title) {
   const res = await fetch(url);
   if (!res.ok) throw new Error(`TMDb search ${res.status} pour "${title}"`);
   const data = await res.json();
-  return data.results?.[0] ?? null;
+  // TMDb ne trie pas /search/movie par pertinence perçue : un titre commun
+  // ("Le Sixième Sens", "Les 400 coups"…) fait souvent remonter en premier
+  // un obscur homonyme sans affiche plutôt que le film recherché. On prend
+  // le résultat le plus populaire *parmi ceux qui ont une affiche*, plutôt
+  // que results[0] tel quel.
+  const withPoster = (data.results ?? []).filter((r) => r.poster_path);
+  if (withPoster.length === 0) return data.results?.[0] ?? null;
+  return withPoster.reduce((best, r) => (r.popularity > best.popularity ? r : best));
 }
 
 async function downloadPoster(posterPath, destFile) {
